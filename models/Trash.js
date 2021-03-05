@@ -66,9 +66,9 @@ var Schema = new db._mongoose.Schema(schemaObject);
 //    .exec(function(err, docs) { ... });
 // Schema.index({'tags': 'text'});
 
-Schema.statics.search = function(string) {
-    return this.find({$text: {$search: string}}, { score : { $meta: 'textScore' } })
-        .sort({ score : { $meta : 'textScore' } });
+Schema.statics.search = function (string) {
+    return this.find({ $text: { $search: string } }, { score: { $meta: 'textScore' } })
+        .sort({ score: { $meta: 'textScore' } });
 };
 
 // assign a function to the "methods" object of our Schema
@@ -84,7 +84,7 @@ Schema.statics.search = function(string) {
 
 // Adding hooks
 
-Schema.pre('save', function(next) {
+Schema.pre('save', function (next) {
     // Indexing for search
     var ourDoc = this._doc;
 
@@ -97,38 +97,38 @@ Schema.pre('save', function(next) {
     next();
 });
 
-Schema.post('init', function(doc) {
+Schema.post('init', function (doc) {
     debug('%s has been initialized from the db', doc._id);
 });
 
-Schema.post('validate', function(doc) {
+Schema.post('validate', function (doc) {
     debug('%s has been validated (but not saved yet)', doc._id);
 });
 
-Schema.post('save', function(doc) {
+Schema.post('save', function (doc) {
     debug('%s has been saved', doc._id);
 });
 
-Schema.post('remove', function(doc) {
+Schema.post('remove', function (doc) {
     debug('%s has been removed', doc._id);
 });
 
-Schema.pre('validate', function(next) {
+Schema.pre('validate', function (next) {
     debug('this gets printed first');
     next();
 });
 
-Schema.post('validate', function() {
+Schema.post('validate', function () {
     debug('this gets printed second');
 });
 
-Schema.pre('find', function(next) {
+Schema.pre('find', function (next) {
     debug(this instanceof db._mongoose.Query); // true
     this.start = Date.now();
     next();
 });
 
-Schema.post('find', function(result) {
+Schema.post('find', function (result) {
     debug(this instanceof db._mongoose.Query); // true
     // prints returned documents
     debug('find() returned ' + JSON.stringify(result));
@@ -136,15 +136,15 @@ Schema.post('find', function(result) {
     debug('find() took ' + (Date.now() - this.start) + ' millis');
 });
 
-Schema.pre('update', function(next) {
+Schema.pre('update', function (next) {
     // Indexing for search
     var ourDoc = this._update;
     ourDoc.model = collection;
     ourDoc.update = true;
 
-    if(ourDoc.updatedAt || ourDoc.tags){ /* jslint ignore:line */
+    if (ourDoc.updatedAt || ourDoc.tags) { /* jslint ignore:line */
         // Move along! Nothing to see here!!
-    }else{
+    } else {
         // Dump it in the queue
         queue.create('searchIndex', ourDoc)
             .save();

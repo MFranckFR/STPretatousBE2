@@ -60,12 +60,12 @@ schemaObject.updatedAt = {
 
 schemaObject.owner = {
     type: db._mongoose.Schema.Types.ObjectId,
-    ref: 'Useraccount'
+    ref: 'Useraccounts'
 };
 
 schemaObject.createdBy = {
     type: db._mongoose.Schema.Types.ObjectId,
-    ref: 'Useraccount'
+    ref: 'Useraccounts'
 };
 
 // schemaObject.client = {

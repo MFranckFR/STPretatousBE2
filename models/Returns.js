@@ -9,20 +9,23 @@ var collection = 'Returns';
 var debug = require('debug')(collection);
 
 const STATUS_ENUM = ['fixed', 'same', 'ruined', 'gone']
-const REGEX_MSG = /[\w-.\p{éèêëäàâüùûïîöô}'\s,?!]/;
+const REGEX_MESSAGE_FR = /[\w-.\p{éèêëäàâüùûïîöô}'\s,?!]/;
 
 var schemaObject = {
     // ++++++++++++++ Modify to your own schema ++++++++++++++++++
     loan: {
         type: db._mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: 'Loans'
     },
     product: {
         type: db._mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: 'Products'
     },
     loaner: {
         type: db._mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: 'Useraccounts'
     },
     dtReturn:{
@@ -39,7 +42,7 @@ var schemaObject = {
         type:String,
         required:false,
         maxlength: 250,
-        match:REGEX_MSG,
+        match:REGEX_MESSAGE_FR,
         default:''
     },
     toPop: {

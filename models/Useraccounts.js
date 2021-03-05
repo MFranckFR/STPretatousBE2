@@ -95,7 +95,6 @@ var schemaObject = { // ++++++++++++++ Modify to your own schema +++++++++++++++
     picture: {
         type: String,
         required: true,
-        maxlength: 100,
         match: REGEX_URL
     },
 
@@ -127,20 +126,20 @@ schemaObject.createdBy = {
     ref: 'Useraccounts'
 };
 
-schemaObject.client = {
-    type: db._mongoose.Schema.Types.ObjectId,
-    ref: 'Clients'
-};
+// schemaObject.client = {
+//     type: db._mongoose.Schema.Types.ObjectId,
+//     ref: 'Clients'
+// };
 
-schemaObject.developer = {
-    type: db._mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
-};
+// schemaObject.developer = {
+//     type: db._mongoose.Schema.Types.ObjectId,
+//     ref: 'Users'
+// };
 
-schemaObject.tags = {
-    type: [String],
-    index: 'text'
-};
+// schemaObject.tags = {
+//     type: [String],
+//     index: 'text'
+// };
 
 // Let us define our schema
 var Schema = db._mongoose.Schema(schemaObject);

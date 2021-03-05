@@ -12,23 +12,26 @@ var schemaObject = {
     // ++++++++++++++ Modify to your own schema ++++++++++++++++++
     booking: {
         type: db._mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: 'Bookings'
     },
     product: {
         type: db._mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: 'Products'
     },
     loaner: {
         type: db._mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: 'Useraccounts'
     },
-    dtBkingStart:{
-        type:Date,
-        required:true
+    dtBkingStart: {
+        type: Date,
+        required: true
     },
-    dtBkingEnd:{
-        type:Date,
-        required:false
+    dtBkingEnd: {
+        type: Date,
+        required: false
     },
     toPop: {
         type: db._mongoose.Schema.Types.ObjectId,

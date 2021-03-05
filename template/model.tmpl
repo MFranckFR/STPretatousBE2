@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var db = require('../services/database').mongo;
 
@@ -70,7 +70,7 @@ var Schema = db._mongoose.Schema(schemaObject);
 // Schema.index({'tags': 'text'});
 
 Schema.statics.search = function(string) {
-    return this.find({$text: {$search: string}}, { score : { $meta: "textScore" } })
+    return this.find({$text: {$search: string}}, { score : { $meta: 'textScore' } })
     .sort({ score : { $meta : 'textScore' } });
 };
 

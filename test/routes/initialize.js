@@ -27,7 +27,7 @@ app.use(response);
 
 
 
-app.use('/',router);
+app.use('/', router);
 
 
 var agent = request.agent(app);
@@ -36,51 +36,51 @@ var requestId;
 var res = {};
 var req = {};
 
-var nextChecker = false;    
-var next = function(){
-    if(arguments.length > 0){
+var nextChecker = false;
+var next = function () {
+    if (arguments.length > 0) {
         console.log(arguments[0]);
-    }else{
+    } else {
         nextChecker = true;
     }
-    
+
     return nextChecker;
 };
-res.json = function(data){
+res.json = function (data) {
     return res;
 };
 
 res.badRequest = sinon.spy();
 
-res.status = function(status){
+res.status = function (status) {
     return res;
 };
 
 var header = {};
-res.set = function(key, value){
+res.set = function (key, value) {
     header[key] = value;
     return header[key];
 };
-req.get = function(key){
+req.get = function (key) {
     return header[key];
 };
 
-header.set = function(data){
+header.set = function (data) {
     header.temp = data;
     return header.temp;
 };
 
 req.method = '';
 
-describe('/initialize', function(){
-    it('should return a string', function(done){
+describe('/initialize', function () {
+    it('should return a string', function (done) {
         agent
             .get('/initialize')
-            .then(function(resp){
+            .then(function (resp) {
                 resp.body.data['x-tag'].should.be.a('string');
                 done();
             })
-            .catch(function(err){
+            .catch(function (err) {
                 done(err);
             });
     });

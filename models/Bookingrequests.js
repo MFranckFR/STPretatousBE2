@@ -15,10 +15,12 @@ var schemaObject = {
     // ++++++++++++++ Modify to your own schema ++++++++++++++++++
     product: {
         type: db._mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: 'Products'
     },
     loaner: {
         type: db._mongoose.Schema.Types.ObjectId,
+        required: true,
         ref: 'Useraccounts'
     },
     status:{
@@ -50,7 +52,7 @@ var schemaObject = {
     dtBkingStart:{
         type:Date,
         required:true,
-        min:new Date().toISOString(),
+        min:Date.now,
     },
     dtBkingEnd:{
         type:Date,

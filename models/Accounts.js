@@ -27,7 +27,7 @@ var schemaObject = { // ++++++++++++++ Modify to your own schema +++++++++++++++
     password: {
         type: String,
         required: true,
-        maxlength:20
+        maxlength: 20
     },
 
     // name: {
@@ -119,7 +119,7 @@ Schema.statics.search = function (string) {
 // Controle du mot de passe haché
 Schema.methods.comparePassword = function (candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-        if (err){
+        if (err) {
             return cb(err);
         }
         cb(null, isMatch);
