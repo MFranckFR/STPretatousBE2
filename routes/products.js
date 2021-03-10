@@ -12,6 +12,9 @@ router.get('/'+service, productsController.find);
 // get product
 router.get('/'+service+'/:id', productsController.findOne);
 
+// get all bookingrequests for a product
+router.get('/'+service+'/:id/bookingrequests', productsController.findAllBookingRequestsOfUser);
+
 // To add validation, add a middlewave like the below. Works for just POST calls only
 // function(req,res,next){
 //     req._required = [ // _required should contain all the fails that are required

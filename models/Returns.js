@@ -8,7 +8,7 @@ var collection = 'Returns';
 
 var debug = require('debug')(collection);
 
-const STATUS_ENUM = ['fixed', 'same', 'ruined', 'gone']
+const STATUS_ENUM = ['fixed', 'same', 'ruined', 'gone'];
 const REGEX_MESSAGE_FR = /[\w-.\p{éèêëäàâüùûïîöô}'\s,?!]/;
 
 var schemaObject = {
@@ -65,6 +65,7 @@ schemaObject.updatedAt = {
 
 schemaObject.owner = {
     type: db._mongoose.Schema.Types.ObjectId,
+    required:true,
     ref: 'Useraccounts'
 };
 

@@ -8,7 +8,6 @@ var collection = 'Bookingrequests';
 
 var debug = require('debug')(collection);
 
-const STATUS_ENUM = ['pending', 'accepted', 'rejected', 'cancelled'];
 const BOOKREQ_MAX_DURATION = 5; // durée maximale en jours d'une demande de résa
 
 var schemaObject = {
@@ -18,6 +17,12 @@ var schemaObject = {
         required: true,
         ref: 'Products'
     },
+    owner: {
+        type: db._mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Useraccounts'
+    },
+
     loaner: {
         type: db._mongoose.Schema.Types.ObjectId,
         required: true,
@@ -25,11 +30,11 @@ var schemaObject = {
     },
     status:{
         type: String,
-        enum: STATUS_ENUM,
+        enum:  ['pending', 'accepted', 'rejected', 'cancelled'],
         required: false,
         default:'pending'
     },
-    hasBooking:{
+    isValidate:{
         type:Boolean,
         required:false,
         default:false,
@@ -76,15 +81,10 @@ schemaObject.updatedAt = {
     default: new Date().toISOString()
 };
 
-schemaObject.owner = {
-    type: db._mongoose.Schema.Types.ObjectId,
-    ref: 'Useraccounts'
-};
-
-schemaObject.createdBy = {
-    type: db._mongoose.Schema.Types.ObjectId,
-    ref: 'Useraccounts'
-};
+// schemaObject.createdBy = {
+//     type: db._mongoose.Schema.Types.ObjectId,
+//     ref: 'Useraccounts'
+// };
 
 // schemaObject.client = {
 //     type: db._mongoose.Schema.Types.ObjectId,

@@ -8,8 +8,6 @@ var collection = 'Products';
 
 var debug = require('debug')(collection);
 
-const REGEX_URL = /[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi; 
-
 
 var schemaObject = {
     // ++++++++++++++ Modify to your own schema ++++++++++++++++++
@@ -24,21 +22,31 @@ var schemaObject = {
         maxlength: 500
     },
     owner:{
-        type:String,
+        type: db._mongoose.Schema.Types.ObjectId,
         required: true,
+        ref: 'Useraccounts'
+    },
+    ownerPseudo:{
+        type: String,
+        required: true,
+        minlength:3,
+        maxlength: 20,
+        match:/^[\w]+$/
     },
     status: {
         type: String,
         required: true,
         maxlength: 20
     },
-    bookingEnable: {
+    available: {
         type: Boolean,
         required: false,
         default:true
     },
     image: {
-        type: String
+        type: String,
+        required: false,
+        match:/[-a-zA-Z0-9@:%_+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_+.~#?&//=]*)?/gi
     },
     toPop: {
         type: db._mongoose.Schema.Types.ObjectId,
@@ -56,11 +64,6 @@ schemaObject.createdAt = {
 schemaObject.updatedAt = {
     type: 'Date',
     default: new Date().toISOString()
-};
-
-schemaObject.owner = {
-    type: db._mongoose.Schema.Types.ObjectId,
-    ref: 'Useraccounts'
 };
 
 schemaObject.createdBy = {

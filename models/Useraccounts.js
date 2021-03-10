@@ -12,6 +12,7 @@ var debug = require('debug')(collection);
 
 // Validation
 const REGEX_MATCH_EMAIL = /[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})/;
+const REGEX_PSEUDO = /^[\w]+$/;
 const REGEX_NAME = /^[\w-.\p{éèêëäàâüùûïîöô}']+$/;
 const REGEX_STREET = /^[\w-.\p{éèêëäàâüùûïîöô}'\s,]+$/;
 const REGEX_ZIPCODE = /^[\d]{5,7}$/;
@@ -38,6 +39,16 @@ var schemaObject = { // ++++++++++++++ Modify to your own schema +++++++++++++++
         type: String,
         required: true,
         maxlength: 20
+    },
+    pseudo:{
+        type: String,
+        required: true,
+        index: {
+            unique: true
+        },
+        minlength:3,
+        maxlength: 20,
+        match: REGEX_PSEUDO
     },
     firstName: {
         type: String,

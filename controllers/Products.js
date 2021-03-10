@@ -218,6 +218,32 @@ ProductsController.findOne = function (req, res, next) {
         });
 };
 
+ProductsController.findAllBookingRequestsOfUser = function(req, res, next){
+    var id = req.params.id;
+    var query = req.query;
+    var populate;
+    if (query) {
+        populate = query.populate; // Samples: 'name location' will populate name and location references. only supports this for now | 'name', 'firstname' will populate name reference and only pick the firstname attribute
+    }
+    var question = Products.findById(id);
+    if (populate) {
+        delete query.populate;
+        question = question.populate(populate);
+    }
+
+    question
+        .then(function (resp) {
+            if (!resp) {
+                next();
+            } else {
+                res.ok(resp);
+            }
+        })
+        .catch(function (err) {
+            next(err);
+        });
+};
+
 ProductsController.create = function (req, res, next) {
     var data = req.body;
     // console.log('ctrlProduct_create', req.body);
